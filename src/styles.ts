@@ -1,7 +1,8 @@
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from "styled-components";
 
 export const colors = {
   rosaClaro: "#FFEBD9",
+  rosaMedio: "#EE8D8D",
   pink: "#E66767",
   branco: "#FFF8F2",
 };
@@ -16,4 +17,11 @@ export const GlobalCss = createGlobalStyle`
     font-family: Roboto, sans-serif;
     list-style: none;
   }
+`;
+
+export const Logo = styled.img`
+  width: 125px;
+  height: 56px;
+  display: flex;
+  margin: 40px auto;
 `;
