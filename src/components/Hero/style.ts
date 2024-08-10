@@ -8,7 +8,7 @@ export const Imagem = styled.div`
  padding-top: 30px;
 `
 export const Titulo = styled.h1`
- font-size: 36px;
+ font-size: 32px;
  color: ${colors.pink};
  text-align: center;
  width: 30%; 

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { colors } from "../../styles.ts";
 import { TagContainer } from "../Tag/style.ts";
+import { Link } from "react-router-dom";
 
 export const Card = styled.div`
   color: ${colors.pink};
@@ -20,6 +21,7 @@ export const CardContainer = styled.div`
   border-bottom: 2px solid ${colors.pink};
   margin-top: 40px;
   position: relative;
+  padding-bottom: 10px;
 
   ${TagContainer} {
     position: absolute;
@@ -57,14 +59,14 @@ export const CardDescription = styled.p`
   padding: 10px;
 `;
 
-export const CardButton = styled.button`
+export const CardButtonLink = styled(Link)`
   font-size: 14px;
-  padding: 4px 6px;
+  padding: 2px 6px;
   background-color: ${colors.pink};
-  border: none;
   color: white;
   cursor: pointer;
   margin: 10px;
+  text-decoration: none;
 
   &:hover {
     background-color: ${colors.rosaMedio};

@@ -1,17 +1,19 @@
-import React from "react";
-import { GlobalCss } from "./styles.ts";
-
-import Banner from "./components/Hero/index.tsx";
-import Listagem from "./components/Listagem/index.tsx";
-import Footer from "./components/Footer/index.tsx";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import {GlobalCss} from './styles.ts';
+import Products from '../src/pages/Products/index.tsx';
+import Home from '../src/pages/Home/index.tsx';
 
 function App() {
   return (
     <>
       <GlobalCss />
-      <Banner />
-      <Listagem />
-      <Footer />
+      <Router>
+        
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Products" element={<Products />} />
+        </Routes>
+      </Router>
     </>
   );
 }

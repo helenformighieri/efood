@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Card,
-  CardButton,
+  CardButtonLink,
   CardContainer,
   CardDescription,
   CardImg,
@@ -31,7 +31,7 @@ const Listagem = () => {
           rápida, embalagens cuidadosas e qualidade garantida. Experimente o
           Japão sem sair do lar com nosso delivery!
         </CardDescription>
-        <CardButton>Saiba Mais</CardButton>
+        <CardButtonLink type="link" to="/Products">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -48,7 +48,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButton>Saiba Mais</CardButton>
+        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -65,7 +65,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButton>Saiba Mais</CardButton>
+        <CardButtonLink type="link" to="/Products">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -82,7 +82,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButton>Saiba Mais</CardButton>
+        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -99,7 +99,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButton>Saiba Mais</CardButton>
+        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -116,7 +116,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButton>Saiba Mais</CardButton>
+        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
       </CardContainer>
     </Card>
   );
