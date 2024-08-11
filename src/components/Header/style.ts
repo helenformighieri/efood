@@ -15,11 +15,7 @@ export const ImagemWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
-
-  & > p {
-    margin: 0px; 
-  }
+  margin-top: 10px;
 
   & > img {
     margin-right: 24%; 
