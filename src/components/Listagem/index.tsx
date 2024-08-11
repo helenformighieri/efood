@@ -48,7 +48,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
+        <CardButtonLink type="link" to="/Products">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -82,7 +82,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
+        <CardButtonLink type="link" to="/Products">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -99,7 +99,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
+        <CardButtonLink type="link" to="/Products">Saiba Mais</CardButtonLink>
       </CardContainer>
       <CardContainer>
         <TagContainer>Italiana</TagContainer>
@@ -116,7 +116,7 @@ const Listagem = () => {
           tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e
           sabor inesquecível. Peça já!
         </CardDescription>
-        <CardButtonLink type="link" to="/produto">Saiba Mais</CardButtonLink>
+        <CardButtonLink type="link" to="/Products">Saiba Mais</CardButtonLink>
       </CardContainer>
     </Card>
   );
