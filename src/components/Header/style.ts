@@ -7,7 +7,6 @@ export const Header = styled.header`
   font-weight: 900;
   font-size: 18px;
   display: flex;
-  justify-content: center;
   align-items: center;
 `;
 
@@ -17,9 +16,18 @@ export const ImagemWrapper = styled.div`
   justify-content: center;
   margin-top: 10px;
 
-  & > img {
-    margin-right: 24%; 
-    margin-left: 30%;
+  @media (min-width: 1400px) {
+    & > img {
+      margin-right: 15%; 
+      margin-left: 20%;
+    }
+  }
+    
+  @media (max-width: 1500px) {
+    & > img {
+      margin-right: 34%; 
+      margin-left: 17.5%;
+    }
   }
 `;
 

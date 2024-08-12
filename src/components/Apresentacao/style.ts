@@ -3,22 +3,37 @@ import styled from "styled-components";
 import { colors } from "../../styles.ts";
 
 export const TitleType = styled.p`
- font-size: 32px;
- font-weight: 100;
- color: ${colors.branco};
- position: absolute;
- top: 20px;
- left: 170px;
-`
+  font-size: 32px;
+  font-weight: 100;
+  color: ${colors.branco};
+  position: absolute;
+  top: 20px;
+  
+  @media (max-width: 1400px) {
+    left: 110px;
+  }
+
+  @media (min-width: 1500px) {
+    left: 390px;
+  }
+`;
+
 export const TitleNameRestaurant = styled.p`
- font-size: 32px;
- font-weight: 900;
- color: ${colors.branco};
- position: absolute;
- top: 10px;
- left: 170px;
- transform: translateY(200px);
-`
+  font-size: 32px;
+  font-weight: 900;
+  color: ${colors.branco};
+  position: absolute;
+  top: 10px;
+  transform: translateY(200px);
+
+  @media (max-width: 1400px) {
+    left: 110px;
+  }
+
+  @media (min-width: 1500px) {
+    left: 390px;
+  }
+`;
 export const Imagem = styled.div`
   background-size: cover;
   background-position: center;
@@ -27,7 +42,7 @@ export const Imagem = styled.div`
   padding: 10px;
   position: relative;
   z-index: 1;
-  
+
   &::before {
     content: "";
     position: absolute;
