@@ -2,13 +2,20 @@ import styled from "styled-components";
 
 import { colors } from "../../styles.ts";
 
+export const ContainerTitles = styled.div`
+  width: 1020px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`;
+
 export const TitleType = styled.p`
   font-size: 32px;
   font-weight: 100;
   color: ${colors.branco};
   position: absolute;
   top: 20px;
-  
+
   @media (max-width: 1400px) {
     left: 110px;
   }
