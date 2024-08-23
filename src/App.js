@@ -8,7 +8,6 @@ function App() {
     <>
       <GlobalCss />
       <Router>
-        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Products" element={<Products />} />

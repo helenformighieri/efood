@@ -1,46 +1,36 @@
 import styled from "styled-components";
-
 import { colors } from "../../styles.ts";
 
-export const ContainerTitles = styled.div`
-  width: 1020px;
+export const Container = styled.div`
+  max-width: 1120px;
+  margin: 0 auto; 
+  position: absolute; 
+  top: 20px; 
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%; 
 `;
 
 export const TitleType = styled.p`
   font-size: 32px;
   font-weight: 100;
   color: ${colors.branco};
-  position: absolute;
-  top: 20px;
-
-  @media (max-width: 1400px) {
-    left: 110px;
-  }
-
-  @media (min-width: 1500px) {
-    left: 390px;
-  }
+  text-align: left; 
+  margin: 0; 
 `;
 
 export const TitleNameRestaurant = styled.p`
   font-size: 32px;
   font-weight: 900;
   color: ${colors.branco};
-  position: absolute;
-  top: 10px;
-  transform: translateY(200px);
-
-  @media (max-width: 1400px) {
-    left: 110px;
-  }
-
-  @media (min-width: 1500px) {
-    left: 390px;
-  }
+  text-align: left; 
+  margin-bottom: 35px; 
 `;
+
 export const Imagem = styled.div`
   background-size: cover;
   background-position: center;
