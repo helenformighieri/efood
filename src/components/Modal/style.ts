@@ -12,45 +12,44 @@ export const ModalOverlay = styled.div<ModalOverlayProps>`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); 
+  background-color: rgba(0, 0, 0, 0.75); 
   justify-content: center;
   align-items: center;
   z-index: 1000;
 `;
 
 export const ModalContent = styled.div`
-  width: 1120px;
-  height: 344px;
+  width: 1090px;
+  height: 384px;
   background-color: ${colors.pink};
-  position: relative;
-  padding: 20px;
+  position: absolute;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
 export const CloseButton = styled.button`
   color: ${colors.branco};
   position: absolute;
-  top: 10px;
+  top: 5px;
   right: 10px;
   background: none;
   border: none;
-  font-size: 18px;
+  font-size: 24px;
   cursor: pointer;
 `;
 
 export const ModalImg = styled.img`
   width: 280px;
-  height: 280px;
-  margin: 10px 10px 10px 0; 
+  height: 280px; 
   object-fit: cover;
 `;
 
 export const ModalContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;  /* Alinha o conteúdo ao topo */
+  justify-content: flex-start;  
+  align-items: flex-start;
   height: 100%;
-  padding: 0 20px;
+  margin-top: 50px;
+  padding: 0 40px;
 `;
 
 export const ModalInformation = styled.div`
@@ -64,21 +63,21 @@ export const ModalInformation = styled.div`
 export const ModalTitle = styled.h2`
   color: ${colors.branco};
   font-size: 24px;
-  margin: 10px 0;
+  margin-bottom: 20px;
 `;
 
 export const ModalDescription = styled.p`
   color: ${colors.branco};
   font-size: 16px;
-  margin: 10px 0;
 `;
 
 export const ModalButton = styled.button`
   background-color: ${colors.branco};
   color: ${colors.pink};
-  padding: 5px 5px;
+  padding: 5px;
   border: none;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 70px;
 `;
+

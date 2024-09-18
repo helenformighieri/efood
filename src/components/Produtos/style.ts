@@ -52,52 +52,55 @@ export const TitleNameRestaurant = styled.p`
 export const ContainerProdutos = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 50px;
-  padding: 40px;
+  gap: 40px;
+  padding: 58px;
   margin: 0 auto; 
   max-width: 1200px; 
   width: 100%; 
-  }
 `;
 
 export const CardProduto = styled.div`
   width: 100%;
   max-width: 320px;
-  height: 338px;
+  height: 380px;
   background-color: ${colors.pink};
-  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
   justify-content: space-between;
+  padding-botton: 20px;
 `;
 
+
 export const CardImg = styled.img`
-  width: 304px;
+  width: 100%;
+  padding: 10px;
   height: 167px;
-  margin: 5px 5px 0 7px;
+  object-fit: cover;
 `;
 
 export const CardTitle = styled.h3`
   color: ${colors.branco};
   font-size: 16px;
   font-weight: 900;
-  margin: 5px 5px 0 7px;
+  margin: 10px;
 `;
 
 export const CardDescription = styled.p`
   color: ${colors.branco};
   font-size: 14px;
   font-weight: 400;
-  margin: 20px 5px 0 7px;
+  margin: 4px;
 `;
 
 export const CardButton = styled.button`
-  width: 304px;
-  height: 24px;
+  width: 300px;
+  padding: 3px;
   background-color: ${colors.branco};
   color: ${colors.pink};
   font-size: 14px;
   font-weight: 700;
   border: none;
-  margin: 15px 5px 10px 7px;
+  cursor: pointer;
+  margin: auto;
+  margin-bottom: 10px; 
 `;

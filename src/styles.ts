@@ -17,6 +17,10 @@ export const GlobalCss = createGlobalStyle`
     font-family: Roboto, sans-serif;
     list-style: none;
   }
+
+  body.modal-open {
+    overflow: hidden;
+  }
 `;
 
 export const Logo = styled.img`
