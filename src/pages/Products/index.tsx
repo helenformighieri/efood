@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../../components/Footer/index.tsx';
 import Header from '../../components/Header/index.tsx';
-import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from '../../components/Produtos/style.ts';
+import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from './style.ts';
 import { Modal } from '../../components/Modal/index.tsx';
 import Apresentacao from '../../components/Apresentacao/index.tsx';
 import { useParams } from 'react-router-dom';

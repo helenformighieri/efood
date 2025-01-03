@@ -73,7 +73,7 @@ export const CardProduto = styled.div`
 
 export const CardImg = styled.img`
   width: 100%;
-  padding: 10px;
+  margin:8px;
   height: 167px;
   object-fit: cover;
 `;

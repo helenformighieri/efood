@@ -2,15 +2,19 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home/index.tsx';
 import Products from './pages/Products/index.tsx';
+import { GlobalCss } from './styles.ts';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Products/:id" element={<Products />} />
-      </Routes>
-    </Router>
+    <>
+      <GlobalCss />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Products/:id" element={<Products />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 

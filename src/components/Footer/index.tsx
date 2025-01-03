@@ -23,7 +23,7 @@ const Footer = () => {
       </RedesSociais>
       <ContainerP>
         A efood é uma plataforma para divulgação de estabelecimentos, a
-        responsabilidade pela entrega, qualidade dos produtos é toda do
+        responsabilidade pela entrega, qualidade <br/> dos produtos é toda do
         estabelecimento contratado.
       </ContainerP>
     </ContainerFooter>
