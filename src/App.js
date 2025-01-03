@@ -1,20 +1,17 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import {GlobalCss} from './styles.ts';
-import Products from '../src/pages/Products/index.tsx';
-import Home from '../src/pages/Home/index.tsx';
+import Home from './pages/Home/index.tsx';
+import Products from './pages/Products/index.tsx';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <GlobalCss />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Products" element={<Products />} />
-        </Routes>
-      </Router>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Products/:id" element={<Products />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

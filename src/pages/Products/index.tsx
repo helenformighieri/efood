@@ -3,6 +3,8 @@ import Footer from '../../components/Footer/index.tsx';
 import Header from '../../components/Header/index.tsx';
 import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from '../../components/Produtos/style.ts';
 import { Modal } from '../../components/Modal/index.tsx';
+import Apresentacao from '../../components/Apresentacao/index.tsx';
+import { useParams } from 'react-router-dom';
 
 interface Product {
   id: number;
@@ -13,23 +15,31 @@ interface Product {
   porcao: string;
 }
 
+interface Restaurant {
+  id: number;
+  titulo: string;
+  tipo: string;
+  capa: string;
+  cardapio: Product[];
+}
+
 const Products = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const { id } = useParams<{ id: string }>();
+  const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchRestaurant = async () => {
       try {
-        const response = await fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes');
+        const response = await fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`);
         if (!response.ok) {
-          throw new Error('Erro ao buscar produtos');
+          throw new Error('Erro ao buscar restaurante');
         }
         const data = await response.json();
-        const allProducts = data.flatMap((restaurant: any) => restaurant.cardapio);
-        setProducts(allProducts);
+        setRestaurant(data);
         setLoading(false);
       } catch (err) {
         setError(err.message);
@@ -37,8 +47,8 @@ const Products = () => {
       }
     };
 
-    fetchProducts();
-  }, []);
+    fetchRestaurant();
+  }, [id]);
 
   const openModal = (product: Product) => {
     setSelectedProduct(product);
@@ -61,8 +71,9 @@ const Products = () => {
   return (
     <>
       <Header />
+      {restaurant && <Apresentacao restaurant={restaurant} />}
       <ContainerProdutos>
-        {products.map(product => (
+        {restaurant?.cardapio.map(product => (
           <CardProduto key={product.id}>
             <CardImg src={product.foto} alt={product.nome} />
             <CardTitle>{product.nome}</CardTitle>

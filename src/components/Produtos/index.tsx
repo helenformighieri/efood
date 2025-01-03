@@ -1,70 +1,73 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from "../Produtos/style.ts";
 import { Modal } from "../Modal/index.tsx";
 
-import pizzaImg from "../../assets/images/pizza.png";
+interface Product {
+  id: number;
+  nome: string;
+  descricao: string;
+  foto: string;
+  preco: number;
+  porcao: string;
+}
+
+interface Restaurant {
+  id: number;
+  titulo: string;
+  tipo: string;
+  capa: string;
+  cardapio: Product[];
+}
 
 const Produtos: React.FC = () => {
-  const [selectedProduct, setSelectedProduct] = useState<{ title: string; description: string; img: string } | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const products = [
-    { 
-      title: "Pizza Marguerita", 
-      description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.", 
-      img: pizzaImg 
-    },
-    { 
-      title: "Pizza Marguerita", 
-      description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.", 
-      img: pizzaImg 
-    },
-    { 
-      title: "Pizza Marguerita", 
-      description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.", 
-      img: pizzaImg 
-    },
-    { 
-      title: "Pizza Marguerita", 
-      description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.", 
-      img: pizzaImg 
-    },
-    { 
-      title: "Pizza Marguerita", 
-      description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.", 
-      img: pizzaImg 
-    },
-    { 
-      title: "Pizza Marguerita", 
-      description: "A clássica Marguerita: molho de tomate suculento, mussarela derretida, manjericão fresco e um toque de azeite.", 
-      img: pizzaImg 
-    },
-  ];
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes');
+        if (!response.ok) {
+          throw new Error('Erro ao buscar produtos');
+        }
+        const data: Restaurant[] = await response.json();
+        const allProducts = data.flatMap(restaurant => restaurant.cardapio);
+        setProducts(allProducts);
+        setLoading(false);
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
 
-  const handleProductClick = (product: { title: string; description: string; img: string }) => {
-    setSelectedProduct({
-      ...product,
-      title: "Pizza Marguerita",
-      description: `A pizza Margherita é uma pizza clássica da culinária italiana, reconhecida por sua simplicidade e sabor inigualável. 
-        Ela é feita com uma base de massa fina e crocante, coberta com molho de tomate fresco, queijo mussarela de alta qualidade, 
-        manjericão fresco e azeite de oliva extra-virgem. A combinação de sabores é perfeita, com o molho de tomate suculento e ligeiramente ácido, 
-        o queijo derretido e cremoso e as folhas de manjericão frescas, que adicionam um toque de sabor herbáceo. 
-        É uma pizza simples, mas deliciosa, que agrada a todos os paladares e é uma ótima opção para qualquer ocasião.
-        <br/><br/>
-        <span style="margin-top: 20px;">Serve: de 2 a 3 pessoas</span>`
-    });
+    fetchProducts();
+  }, []);
+
+  const handleProductClick = (product: Product) => {
+    setSelectedProduct(product);
   };
 
   const closeModal = () => {
     setSelectedProduct(null);
   };
 
+  if (loading) {
+    return <p>Carregando produtos...</p>;
+  }
+
+  if (error) {
+    return <p>Erro: {error}</p>;
+  }
+
   return (
     <ContainerProdutos>
-      {products.map((product, index) => (
-        <CardProduto key={index}>
-          <CardImg src={product.img} alt={product.title} />
-          <CardTitle>{product.title}</CardTitle>
-          <CardDescription>{product.description}</CardDescription>
+      {products.map((product) => (
+        <CardProduto key={product.id}>
+          <CardImg src={product.foto} alt={product.nome} />
+          <CardTitle>{product.nome}</CardTitle>
+          <CardDescription>{product.descricao}</CardDescription>
           <CardButton onClick={() => handleProductClick(product)}>Saiba mais</CardButton>
         </CardProduto>
       ))}
@@ -73,9 +76,9 @@ const Produtos: React.FC = () => {
         <Modal
           isOpen={!!selectedProduct}
           onClose={closeModal}
-          title={selectedProduct.title}
-          description={selectedProduct.description}
-          img={selectedProduct.img}
+          title={selectedProduct.nome}
+          description={selectedProduct.descricao}
+          img={selectedProduct.foto}
         />
       )}
     </ContainerProdutos>

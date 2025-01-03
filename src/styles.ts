@@ -29,3 +29,5 @@ export const Logo = styled.img`
   display: flex;
   margin: 40px auto;
 `;
+
+
