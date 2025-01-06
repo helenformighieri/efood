@@ -88,6 +88,7 @@ const Products = () => {
             title={selectedProduct.nome}
             description={selectedProduct.descricao}
             img={selectedProduct.foto}
+            price={selectedProduct.preco} 
           />
         )}
       </ContainerProdutos>

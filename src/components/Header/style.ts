@@ -26,3 +26,12 @@ export const Imagem = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const Links = styled.a`
+  text-decoration: none;
+  color: ${colors.pink};
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Imagem, ImagemWrapper } from "./style.ts";
+import { Header, Imagem, ImagemWrapper, Links } from "./style.ts";
 import { Logo } from "../../styles.ts";
 
 import bannerImg from "../../assets/images/banner.png";
@@ -10,9 +10,9 @@ const HeaderComponent = () => {
     <Header>
       <Imagem style={{ backgroundImage: `url(${bannerImg})` }}>
         <ImagemWrapper>
-          <p>Restaurantes</p>
+          <Links href="/">Restaurantes</Links>
           <Logo src={logo} alt="Logo" />
-          <p>0 produto(s) no carrinho</p>
+          <Links href="">0 produto(s) no carrinho</Links>
         </ImagemWrapper>
       </Imagem>
     </Header>

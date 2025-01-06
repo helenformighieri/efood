@@ -7,9 +7,10 @@ interface ModalProps {
   title: string;
   description: string;
   img: string;
+  price: number; // Add price to the interface
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, description, img }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, description, img, price }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('modal-open');
@@ -31,7 +32,7 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, descriptio
           <ModalInformation>
             <ModalTitle>{title}</ModalTitle>
             <ModalDescription>{description}</ModalDescription>
-            <ModalButton>Adicionar ao carrinho - R$ 60,90</ModalButton>
+            <ModalButton>Adicionar ao carrinho - R$ {price.toFixed(2)}</ModalButton>
           </ModalInformation>
         </ModalContainer>
       </ModalContent>
