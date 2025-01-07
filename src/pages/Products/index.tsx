@@ -4,15 +4,8 @@ import Header from '../../components/Header/index.tsx';
 import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from './style.ts';
 import { Modal } from '../../components/Modal/index.tsx';
 import { useParams } from 'react-router-dom';
-
-interface Product {
-  id: number;
-  nome: string;
-  descricao: string;
-  foto: string;
-  preco: number;
-  porcao: string;
-}
+import { Cart } from '../../components/Cart/index.tsx';
+import { Product } from '../../components/Cart/index.tsx';
 
 interface Restaurant {
   id: number;
@@ -29,6 +22,7 @@ const Products = () => {
   const [error, setError] = useState<string | null>(null);
   const [cartItems, setCartItems] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isCartOpen, setCartOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -51,7 +45,25 @@ const Products = () => {
   }, [id]);
 
   const handleAddToCart = (product: Product) => {
-    setCartItems([...cartItems, product]);
+    const existingProduct = cartItems.find(item => item.id === product.id);
+    if (existingProduct) {
+      setCartItems(cartItems.map(item =>
+        item.id === product.id ? { ...item, quantidade: item.quantidade + 1 } : item
+      ));
+    } else {
+      setCartItems([...cartItems, { ...product, quantidade: 1 }]);
+    }
+  };
+
+  const handleRemoveFromCart = (productId: number) => {
+    const existingProduct = cartItems.find(item => item.id === productId);
+    if (existingProduct && existingProduct.quantidade > 1) {
+      setCartItems(cartItems.map(item =>
+        item.id === productId ? { ...item, quantidade: item.quantidade - 1 } : item
+      ));
+    } else {
+      setCartItems(cartItems.filter(item => item.id !== productId));
+    }
   };
 
   const openModal = (product: Product) => {
@@ -64,6 +76,9 @@ const Products = () => {
     setSelectedProduct(null);
   };
 
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantidade, 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
+
   if (loading) {
     return <p>Carregando produtos...</p>;
   }
@@ -74,7 +89,7 @@ const Products = () => {
 
   return (
     <>
-      <Header cartItems={cartItems} onAddToCart={handleAddToCart} />
+      <Header cartItems={cartItems} totalItems={totalItems} totalPrice={totalPrice} onAddToCart={handleAddToCart} onRemoveFromCart={handleRemoveFromCart} />
       <ContainerProdutos>
         {restaurant?.cardapio.map(product => (
           <CardProduto key={product.id}>
@@ -86,7 +101,7 @@ const Products = () => {
         ))}
         {selectedProduct && (
           <Modal
-            isOpen={isModalOpen}
+            isOpen={!!selectedProduct}
             onClose={closeModal}
             title={selectedProduct.nome}
             description={selectedProduct.descricao}
@@ -96,6 +111,13 @@ const Products = () => {
           />
         )}
       </ContainerProdutos>
+      <Cart
+        isOpen={isCartOpen}
+        onClose={() => setCartOpen(false)}
+        cartItems={cartItems}
+        onAddToCart={handleAddToCart}
+        onRemoveFromCart={handleRemoveFromCart}
+      />
       <Footer />
     </>
   );

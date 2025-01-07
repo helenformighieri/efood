@@ -4,13 +4,17 @@ import { Header, Imagem, ImagemWrapper, Links } from "./style.ts";
 import { Logo } from "../../styles.ts";
 import bannerImg from "../../assets/images/banner.png";
 import logo from "../../assets/images/logo.png";
+import { Product } from "../../components/Cart/index.tsx"; 
 
 interface HeaderComponentProps {
   cartItems: Product[];
+  totalItems: number;
+  totalPrice: number;
   onAddToCart: (product: Product) => void;
+  onRemoveFromCart: (productId: number) => void;
 }
 
-const HeaderComponent: React.FC<HeaderComponentProps> = ({ cartItems, onAddToCart }) => {
+const HeaderComponent: React.FC<HeaderComponentProps> = ({ cartItems, totalItems, totalPrice, onAddToCart, onRemoveFromCart }) => { 
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
@@ -20,13 +24,14 @@ const HeaderComponent: React.FC<HeaderComponentProps> = ({ cartItems, onAddToCar
           <Links href="/">Restaurantes</Links>
           <Logo src={logo} alt="Logo" />
           <Links as="button" className="button" onClick={() => setIsCartOpen(true)}>
-            {cartItems.length} produto(s) no carrinho
+            {totalItems} produto(s) no carrinho 
           </Links>
           <Cart
             isOpen={isCartOpen}
             onClose={() => setIsCartOpen(false)}
             cartItems={cartItems}
             onAddToCart={onAddToCart}
+            onRemoveFromCart={onRemoveFromCart} 
           />
         </ImagemWrapper>
       </Imagem>

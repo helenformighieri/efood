@@ -1,22 +1,29 @@
 import React from "react";
-import { CartContainer, Overlay, ProductCard, ProductImage, ProductInfo, TotalContainer } from "./style.ts";
+import { CartContainer, Overlay, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton } from "./style.ts";
+import lixeira from "../../assets/images/lixeira.png";
 
-interface Product {
+
+export interface Product {
   id: number;
   nome: string;
-  preco: number;
+  descricao: string;
   foto: string;
+  preco: number;
+  porcao: string;
+  quantidade: number;
 }
 
 interface CartProps {
   isOpen: boolean;
   onClose: () => void;
   cartItems: Product[];
+  totalPrice: number;
   onAddToCart: (product: Product) => void;
+  onRemoveFromCart: (productId: number) => void;
 }
 
-export const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems }) => {
-  const total = cartItems.reduce((sum, item) => sum + item.preco, 0);
+export const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onAddToCart, onRemoveFromCart }) => {
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 
   return (
     <>
@@ -26,19 +33,21 @@ export const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems }) => {
           <p>Seu carrinho está vazio</p>
         ) : (
           <>
-            <ul>
-              {cartItems.map((item) => (
-                <ProductCard key={item.id}>
-                  <ProductImage src={item.foto} alt={item.nome} />
-                  <ProductInfo>
-                    <h3>{item.nome}</h3>
-                    <p>R$ {item.preco.toFixed(2)}</p>
-                  </ProductInfo>
-                </ProductCard>
-              ))}
-            </ul>
+            {cartItems.map((item) => (
+              <ProductCard key={item.id}>
+                <ProductImage src={item.foto} alt={item.nome} />
+                <ProductInfo>
+                  <ProductTitle>{item.nome}</ProductTitle>
+                  <ProductPrice>R$ {item.preco.toFixed(2)} x {item.quantidade}</ProductPrice>
+                </ProductInfo>
+                <RemoveButton onClick={() => onRemoveFromCart(item.id)}>
+                  <img src={lixeira} alt="Remover" />
+                </RemoveButton>
+              </ProductCard>
+            ))}
             <TotalContainer>
-              <h3>Total: R$ {total.toFixed(2)}</h3>
+              <p>Valor total</p>
+              <p>Total: R$ {totalPrice.toFixed(2)}</p>
             </TotalContainer>
           </>
         )}

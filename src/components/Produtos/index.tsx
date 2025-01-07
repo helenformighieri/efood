@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from "../Produtos/style.ts";
 import { Modal } from "../Modal/index.tsx";
 
-interface Product {
+export interface Product {
   id: number;
   nome: string;
   descricao: string;
   foto: string;
   preco: number;
   porcao: string;
+  quantidade: number;
 }
 
 interface Restaurant {
@@ -27,9 +28,14 @@ const Produtos: React.FC = () => {
   const [cartItems, setCartItems] = useState<Product[]>([]);
 
 
-  const handleAddToCart = () => {
-    if (selectedProduct) {
-      setCartItems([...cartItems, selectedProduct]);
+  const handleAddToCart = (product: Product) => {
+    const existingProduct = cartItems.find(item => item.id === product.id);
+    if (existingProduct) {
+      setCartItems(cartItems.map(item =>
+        item.id === product.id ? { ...item, quantidade: item.quantidade + 1 } : item
+      ));
+    } else {
+      setCartItems([...cartItems, { ...product, quantidade: 1 }]);
     }
   };
 
@@ -66,7 +72,7 @@ const Produtos: React.FC = () => {
     return <p>Erro: {error}</p>;
   }
 
-  
+
   return (
     <ContainerProdutos>
       {products.map((product) => (
@@ -86,7 +92,7 @@ const Produtos: React.FC = () => {
           description={selectedProduct.descricao}
           img={selectedProduct.foto}
           price={selectedProduct.preco}
-          onAddToCart={handleAddToCart}
+          onAddToCart={() => handleAddToCart(selectedProduct)}
         />
       )}
     </ContainerProdutos>
