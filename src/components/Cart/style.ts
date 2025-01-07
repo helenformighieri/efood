@@ -33,6 +33,10 @@ export const Overlay = styled.div<CartContainerProps>`
   z-index: 9999;
 `;
 
+export const AvisoCarrinhoVazio = styled.p`
+  margin: 20px;
+`;
+
 export const ProductCard = styled.li`
   width: 344px;
   height: 100px;

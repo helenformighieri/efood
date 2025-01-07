@@ -1,5 +1,5 @@
 import React from "react";
-import { CartContainer, Overlay, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton } from "./style.ts";
+import { CartContainer, Overlay, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton, AvisoCarrinhoVazio } from "./style.ts";
 import lixeira from "../../assets/images/lixeira.png";
 
 
@@ -30,7 +30,7 @@ export const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onAddToC
       <Overlay isOpen={isOpen} onClick={onClose} />
       <CartContainer isOpen={isOpen}>
         {cartItems.length === 0 ? (
-          <p>Seu carrinho está vazio</p>
+          <AvisoCarrinhoVazio>Seu carrinho está vazio</AvisoCarrinhoVazio>
         ) : (
           <>
             {cartItems.map((item) => (
