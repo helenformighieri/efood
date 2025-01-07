@@ -6,6 +6,9 @@ import { Modal } from '../../components/Modal/index.tsx';
 import { useParams } from 'react-router-dom';
 import { Cart } from '../../components/Cart/index.tsx';
 import { Product } from '../../components/Cart/index.tsx';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store/index.ts';
+import { addToCart, removeFromCart } from '../../slices/cartSlice.ts';
 
 interface Restaurant {
   id: number;
@@ -20,10 +23,12 @@ const Products = () => {
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isCartOpen, setCartOpen] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchRestaurant = async () => {
@@ -45,25 +50,11 @@ const Products = () => {
   }, [id]);
 
   const handleAddToCart = (product: Product) => {
-    const existingProduct = cartItems.find(item => item.id === product.id);
-    if (existingProduct) {
-      setCartItems(cartItems.map(item =>
-        item.id === product.id ? { ...item, quantidade: item.quantidade + 1 } : item
-      ));
-    } else {
-      setCartItems([...cartItems, { ...product, quantidade: 1 }]);
-    }
+    dispatch(addToCart(product));
   };
 
   const handleRemoveFromCart = (productId: number) => {
-    const existingProduct = cartItems.find(item => item.id === productId);
-    if (existingProduct && existingProduct.quantidade > 1) {
-      setCartItems(cartItems.map(item =>
-        item.id === productId ? { ...item, quantidade: item.quantidade - 1 } : item
-      ));
-    } else {
-      setCartItems(cartItems.filter(item => item.id !== productId));
-    }
+    dispatch(removeFromCart(productId));
   };
 
   const openModal = (product: Product) => {
@@ -89,7 +80,12 @@ const Products = () => {
 
   return (
     <>
-      <Header cartItems={cartItems} totalItems={totalItems} totalPrice={totalPrice} onAddToCart={handleAddToCart} onRemoveFromCart={handleRemoveFromCart} />
+      <Header
+        totalItems={totalItems}
+        totalPrice={totalPrice}
+        onAddToCart={handleAddToCart}
+        onRemoveFromCart={handleRemoveFromCart}
+      />
       <ContainerProdutos>
         {restaurant?.cardapio.map(product => (
           <CardProduto key={product.id}>
@@ -114,7 +110,6 @@ const Products = () => {
       <Cart
         isOpen={isCartOpen}
         onClose={() => setCartOpen(false)}
-        cartItems={cartItems}
         onAddToCart={handleAddToCart}
         onRemoveFromCart={handleRemoveFromCart}
       />

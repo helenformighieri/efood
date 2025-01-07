@@ -8,11 +8,13 @@ interface CartContainerProps {
 export const CartContainer = styled.div<CartContainerProps>`
   position: fixed;
   top: 0;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
   right: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
-  width: 370px;
+  width: 390px;
   height: 100%;
   background-color: ${colors.pink};
   
@@ -38,10 +40,10 @@ export const AvisoCarrinhoVazio = styled.p`
 `;
 
 export const ProductCard = styled.li`
-  width: 344px;
+  width: 95%;
   height: 100px;
+  margin: 9px auto;
   background-color: ${colors.rosaClaro};
-  margin: 9px;
   display: flex;
   align-items: center;
   padding: 10px;
@@ -75,12 +77,12 @@ export const ProductPrice = styled.p`
 `;
 
 export const TotalContainer = styled.div`
-  width: 100%;
+  width: 95%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  margin-top: 30px;
+  margin: 0 auto;
   text-align: right;
   font-size: 17px;
   font-weight: bold;
@@ -93,4 +95,16 @@ export const RemoveButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
+`;
+
+export const ContinueButton = styled.button`
+  width: 95%;
+  font-size: 14px;
+  padding: 7px 0;
+  background-color: ${colors.rosaClaro};
+  color: ${colors.pink};
+  cursor: pointer;
+  margin: 10px auto;
+  text-decoration: none;
+  border: none;
 `;

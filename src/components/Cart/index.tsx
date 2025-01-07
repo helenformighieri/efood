@@ -1,6 +1,9 @@
 import React from "react";
-import { CartContainer, Overlay, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton, AvisoCarrinhoVazio } from "./style.ts";
+import { CartContainer, Overlay, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton, ContinueButton, AvisoCarrinhoVazio } from "./style.ts";
 import lixeira from "../../assets/images/lixeira.png";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store';
+import { removeFromCart } from '../../slices/cartSlice.ts';
 
 
 export interface Product {
@@ -16,13 +19,11 @@ export interface Product {
 interface CartProps {
   isOpen: boolean;
   onClose: () => void;
-  cartItems: Product[];
-  totalPrice: number;
-  onAddToCart: (product: Product) => void;
-  onRemoveFromCart: (productId: number) => void;
 }
 
-export const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onAddToCart, onRemoveFromCart }) => {
+export const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalPrice = cartItems.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
 
   return (
@@ -40,7 +41,7 @@ export const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onAddToC
                   <ProductTitle>{item.nome}</ProductTitle>
                   <ProductPrice>R$ {item.preco.toFixed(2)} x {item.quantidade}</ProductPrice>
                 </ProductInfo>
-                <RemoveButton onClick={() => onRemoveFromCart(item.id)}>
+                <RemoveButton onClick={() => dispatch(removeFromCart(item.id))}>
                   <img src={lixeira} alt="Remover" />
                 </RemoveButton>
               </ProductCard>
@@ -51,6 +52,9 @@ export const Cart: React.FC<CartProps> = ({ isOpen, onClose, cartItems, onAddToC
             </TotalContainer>
           </>
         )}
+        <ContinueButton onClick={() => setIsEntregaOpen(true)}>
+          Continuar com a entrega
+        </ContinueButton>
       </CartContainer>
     </>
   );

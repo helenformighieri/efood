@@ -4,18 +4,13 @@ import { Header, Imagem, ImagemWrapper, Links } from "./style.ts";
 import { Logo } from "../../styles.ts";
 import bannerImg from "../../assets/images/banner.png";
 import logo from "../../assets/images/logo.png";
-import { Product } from "../../components/Cart/index.tsx"; 
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
-interface HeaderComponentProps {
-  cartItems: Product[];
-  totalItems: number;
-  totalPrice: number;
-  onAddToCart: (product: Product) => void;
-  onRemoveFromCart: (productId: number) => void;
-}
-
-const HeaderComponent: React.FC<HeaderComponentProps> = ({ cartItems, totalItems, totalPrice, onAddToCart, onRemoveFromCart }) => { 
+const HeaderComponent: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantidade, 0);
 
   return (
     <Header>
@@ -23,16 +18,13 @@ const HeaderComponent: React.FC<HeaderComponentProps> = ({ cartItems, totalItems
         <ImagemWrapper>
           <Links href="/">Restaurantes</Links>
           <Logo src={logo} alt="Logo" />
-          <Links as="button" className="button" onClick={() => setIsCartOpen(true)}>
-            {totalItems} produto(s) no carrinho 
+          <Links href="#" onClick={(event) => {
+            event.preventDefault();
+            setIsCartOpen(true);
+          }}>
+            {totalItems} produto(s) no carrinho
           </Links>
-          <Cart
-            isOpen={isCartOpen}
-            onClose={() => setIsCartOpen(false)}
-            cartItems={cartItems}
-            onAddToCart={onAddToCart}
-            onRemoveFromCart={onRemoveFromCart} 
-          />
+          <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         </ImagemWrapper>
       </Imagem>
     </Header>
