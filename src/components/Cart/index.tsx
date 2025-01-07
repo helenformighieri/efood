@@ -52,7 +52,7 @@ export const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
             </TotalContainer>
           </>
         )}
-        <ContinueButton onClick={() => setIsEntregaOpen(true)}>
+        <ContinueButton>
           Continuar com a entrega
         </ContinueButton>
       </CartContainer>
