@@ -30,8 +30,18 @@ export const Imagem = styled.div`
 export const Links = styled.a`
   text-decoration: none;
   color: ${colors.pink};
+  cursor: pointer;
 
   &:hover {
     text-decoration: underline;
+  }
+
+  &.button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
   }
 `;

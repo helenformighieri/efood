@@ -3,7 +3,6 @@ import Footer from '../../components/Footer/index.tsx';
 import Header from '../../components/Header/index.tsx';
 import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from './style.ts';
 import { Modal } from '../../components/Modal/index.tsx';
-import Apresentacao from '../../components/Apresentacao/index.tsx';
 import { useParams } from 'react-router-dom';
 
 interface Product {
@@ -26,10 +25,11 @@ interface Restaurant {
 const Products = () => {
   const { id } = useParams<{ id: string }>();
   const [restaurant, setRestaurant] = useState<Restaurant | null>(null);
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchRestaurant = async () => {
@@ -49,6 +49,10 @@ const Products = () => {
 
     fetchRestaurant();
   }, [id]);
+
+  const handleAddToCart = (product: Product) => {
+    setCartItems([...cartItems, product]);
+  };
 
   const openModal = (product: Product) => {
     setSelectedProduct(product);
@@ -70,8 +74,7 @@ const Products = () => {
 
   return (
     <>
-      <Header />
-      {restaurant && <Apresentacao restaurant={restaurant} />}
+      <Header cartItems={cartItems} onAddToCart={handleAddToCart} />
       <ContainerProdutos>
         {restaurant?.cardapio.map(product => (
           <CardProduto key={product.id}>
@@ -88,7 +91,8 @@ const Products = () => {
             title={selectedProduct.nome}
             description={selectedProduct.descricao}
             img={selectedProduct.foto}
-            price={selectedProduct.preco} 
+            price={selectedProduct.preco}
+            onAddToCart={() => handleAddToCart(selectedProduct)}
           />
         )}
       </ContainerProdutos>

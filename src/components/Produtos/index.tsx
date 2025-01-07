@@ -24,6 +24,14 @@ const Produtos: React.FC = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [cartItems, setCartItems] = useState<Product[]>([]);
+
+
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      setCartItems([...cartItems, selectedProduct]);
+    }
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,9 +53,6 @@ const Produtos: React.FC = () => {
     fetchProducts();
   }, []);
 
-  const handleProductClick = (product: Product) => {
-    setSelectedProduct(product);
-  };
 
   const closeModal = () => {
     setSelectedProduct(null);
@@ -61,6 +66,7 @@ const Produtos: React.FC = () => {
     return <p>Erro: {error}</p>;
   }
 
+  
   return (
     <ContainerProdutos>
       {products.map((product) => (
@@ -68,7 +74,7 @@ const Produtos: React.FC = () => {
           <CardImg src={product.foto} alt={product.nome} />
           <CardTitle>{product.nome}</CardTitle>
           <CardDescription>{product.descricao}</CardDescription>
-          <CardButton onClick={() => handleProductClick(product)}>Saiba mais</CardButton>
+          <CardButton onClick={() => setSelectedProduct(product)}>Saiba mais</CardButton>
         </CardProduto>
       ))}
 
@@ -79,6 +85,8 @@ const Produtos: React.FC = () => {
           title={selectedProduct.nome}
           description={selectedProduct.descricao}
           img={selectedProduct.foto}
+          price={selectedProduct.preco}
+          onAddToCart={handleAddToCart}
         />
       )}
     </ContainerProdutos>

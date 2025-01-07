@@ -1,5 +1,17 @@
 import React, { useEffect } from "react";
-import { ModalOverlay, ModalContent, CloseButton, ModalContainer, ModalImg, ModalInformation, ModalTitle, ModalDescription, ModalButton } from './style.ts';
+import {
+  ModalOverlay,
+  ModalContent,
+  CloseButton,
+  ModalContainer,
+  ModalImg,
+  ModalInformation,
+  ModalTitle,
+  ModalDescription,
+  ModalButton
+} from './style.ts';
+
+
 
 interface ModalProps {
   isOpen: boolean;
@@ -7,10 +19,20 @@ interface ModalProps {
   title: string;
   description: string;
   img: string;
-  price: number; // Add price to the interface
+  price: number;
+  onAddToCart: () => void;
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, description, img, price }) => {
+
+export const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  title,
+  description,
+  img,
+  price,
+  onAddToCart
+}) => {
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('modal-open');
@@ -32,7 +54,9 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, descriptio
           <ModalInformation>
             <ModalTitle>{title}</ModalTitle>
             <ModalDescription>{description}</ModalDescription>
-            <ModalButton>Adicionar ao carrinho - R$ {price.toFixed(2)}</ModalButton>
+            <ModalButton onClick={onAddToCart}>
+              Adicionar ao carrinho - R$ {price.toFixed(2)}
+            </ModalButton>
           </ModalInformation>
         </ModalContainer>
       </ModalContent>
