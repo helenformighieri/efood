@@ -21,6 +21,7 @@ interface ModalProps {
   img: string;
   price: number;
   onAddToCart: () => void;
+  openCart: () => void;
 }
 
 
@@ -31,7 +32,8 @@ export const Modal: React.FC<ModalProps> = ({
   description,
   img,
   price,
-  onAddToCart
+  onAddToCart,
+  openCart
 }) => {
   useEffect(() => {
     if (isOpen) {
@@ -45,6 +47,11 @@ export const Modal: React.FC<ModalProps> = ({
     };
   }, [isOpen]);
 
+  const handleAddToCart = () => {
+    onAddToCart();
+    openCart();
+  };
+
   return (
     <ModalOverlay isOpen={isOpen}>
       <ModalContent>
@@ -54,7 +61,7 @@ export const Modal: React.FC<ModalProps> = ({
           <ModalInformation>
             <ModalTitle>{title}</ModalTitle>
             <ModalDescription>{description}</ModalDescription>
-            <ModalButton onClick={onAddToCart}>
+            <ModalButton onClick={handleAddToCart}>
               Adicionar ao carrinho - R$ {price.toFixed(2)}
             </ModalButton>
           </ModalInformation>

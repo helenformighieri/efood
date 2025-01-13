@@ -29,7 +29,6 @@ const Products = () => {
   const [isCartOpen, setCartOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
-
   useEffect(() => {
     const fetchRestaurant = async () => {
       try {
@@ -104,6 +103,7 @@ const Products = () => {
             img={selectedProduct.foto}
             price={selectedProduct.preco}
             onAddToCart={() => handleAddToCart(selectedProduct)}
+            openCart={() => setCartOpen(true)}
           />
         )}
       </ContainerProdutos>
