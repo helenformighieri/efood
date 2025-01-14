@@ -25,6 +25,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const totalPrice = cartItems.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
   const [isDelivery, setIsDelivery] = useState(false);
+  const [isPayment, setIsPayment] = useState(false);
   const [deliveryInfo, setDeliveryInfo] = useState({
     receiver: '',
     address: '',
@@ -32,6 +33,13 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
     zipCode: '',
     number: '',
     complement: '',
+  });
+  const [paymentInfo, setPaymentInfo] = useState({
+    cardName: '',
+    cardNumber: '',
+    cvv: '',
+    expiryMonth: '',
+    expiryYear: '',
   });
 
   const handleContinueToDelivery = () => {
@@ -42,13 +50,25 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
     setIsDelivery(false);
   };
 
+  const handleContinueToPayment = () => {
+    setIsPayment(true);
+  };
+
+  const handleBackToDelivery = () => {
+    setIsPayment(false);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setDeliveryInfo({ ...deliveryInfo, [name]: value });
+    if (isPayment) {
+      setPaymentInfo({ ...paymentInfo, [name]: value });
+    } else {
+      setDeliveryInfo({ ...deliveryInfo, [name]: value });
+    }
   };
 
   const handleCheckout = () => {
-    dispatch(checkout({ products: cartItems, delivery: deliveryInfo }));
+    dispatch(checkout({ products: cartItems, delivery: deliveryInfo, payment: paymentInfo }));
     onClose();
   };
 
@@ -56,7 +76,37 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
     <>
       <Overlay isOpen={isOpen} onClick={onClose} />
       <CartContainer isOpen={isOpen}>
-        {isDelivery ? (
+        {isPayment ? (
+          <DeliveryContainer>
+            <ModalTitle>Pagamento</ModalTitle>
+            <Label>Nome no cartão</Label>
+            <Input name="cardName" value={paymentInfo.cardName} onChange={handleChange} />
+            <RowContainer>
+              <div>
+                <Label>Número do cartão</Label>
+                <Input name="cardNumber" value={paymentInfo.cardNumber} onChange={handleChange} />
+              </div>
+              <div>
+                <Label>CVV</Label>
+                <Input name="cvv" value={paymentInfo.cvv} onChange={handleChange} />
+              </div>
+            </RowContainer>
+            <RowContainer>
+              <div>
+                <Label>Mês de vencimento</Label>
+                <Input name="expiryMonth" value={paymentInfo.expiryMonth} onChange={handleChange} />
+              </div>
+              <div>
+                <Label>Ano de vencimento</Label>
+                <Input name="expiryYear" value={paymentInfo.expiryYear} onChange={handleChange} />
+              </div>
+            </RowContainer>
+            <ButtonContainer>
+              <ContinueButton onClick={handleCheckout}>Finalizar pagamento</ContinueButton>
+              <ContinueButton onClick={handleBackToDelivery}>Voltar para a entrega</ContinueButton>
+            </ButtonContainer>
+          </DeliveryContainer>
+        ) : isDelivery ? (
           <DeliveryContainer>
             <ModalTitle>Entrega</ModalTitle>
             <Label>Nome do recebedor</Label>
@@ -78,7 +128,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
             <Label>Complemento (opcional)</Label>
             <Input name="complement" value={deliveryInfo.complement} onChange={handleChange} />
             <ButtonContainer>
-              <ContinueButton onClick={handleCheckout}>Continuar com o pagamento</ContinueButton>
+              <ContinueButton onClick={handleContinueToPayment}>Continuar com o pagamento</ContinueButton>
               <ContinueButton onClick={handleBackToCart}>Voltar para o carrinho</ContinueButton>
             </ButtonContainer>
           </DeliveryContainer>
@@ -111,7 +161,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
             </ContinueButton>
           </>
         )}
-      </CartContainer>
+      </CartContainer >
     </>
   );
 };
