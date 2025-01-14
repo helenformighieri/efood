@@ -31,8 +31,13 @@ const cartSlice = createSlice({
         }
       }
     },
+    checkout: (state, action: PayloadAction<any>) => {
+      // Handle checkout logic here
+      console.log('Checkout data:', action.payload);
+      state.items = [];
+    },
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, checkout } = cartSlice.actions;
 export default cartSlice.reducer;

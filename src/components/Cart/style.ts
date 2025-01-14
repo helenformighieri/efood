@@ -98,13 +98,64 @@ export const RemoveButton = styled.button`
 `;
 
 export const ContinueButton = styled.button`
-  width: 95%;
+  width: calc(100% - 20px);
   font-size: 14px;
   padding: 7px 0;
   background-color: ${colors.rosaClaro};
   color: ${colors.pink};
   cursor: pointer;
-  margin: 10px auto;
+  margin: 10px;
   text-decoration: none;
   border: none;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  background-color: ${colors.rosaClaro};
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column; 
+  width: 100%;
+`;
+
+export const ModalTitle = styled.h2`
+  color: ${colors.branco};
+  font-size: 20px;
+  font-weight: normal;
+  margin-bottom: 20px;
+  text-align: left; 
+  width: 100%; 
+`;
+
+export const Label = styled.label`
+  width: 100%;
+  margin-bottom: 5px;
+  font-weight: normal;
+  color: ${colors.branco};
+  font-size: 14px;
+`;
+
+export const RowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & > div {
+    width: 48%;
+  }
+`;
+
+export const DeliveryContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 `;

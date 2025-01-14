@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Cart } from "../Cart/index.tsx";
+import Cart  from "../Cart/index.tsx";
 import { Header, Imagem, ImagemWrapper, Links } from "./style.ts";
 import { Logo } from "../../styles.ts";
 import bannerImg from "../../assets/images/banner.png";

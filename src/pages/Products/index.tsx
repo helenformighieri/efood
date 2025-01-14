@@ -4,7 +4,7 @@ import Header from '../../components/Header/index.tsx';
 import { ContainerProdutos, CardProduto, CardImg, CardTitle, CardDescription, CardButton } from './style.ts';
 import { Modal } from '../../components/Modal/index.tsx';
 import { useParams } from 'react-router-dom';
-import { Cart } from '../../components/Cart/index.tsx';
+import Cart from '../../components/Cart/index.tsx';
 import { Product } from '../../components/Cart/index.tsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/index.ts';
@@ -110,8 +110,6 @@ const Products = () => {
       <Cart
         isOpen={isCartOpen}
         onClose={() => setCartOpen(false)}
-        onAddToCart={handleAddToCart}
-        onRemoveFromCart={handleRemoveFromCart}
       />
       <Footer />
     </>
