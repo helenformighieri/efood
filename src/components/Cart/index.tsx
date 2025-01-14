@@ -26,6 +26,8 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
   const totalPrice = cartItems.reduce((sum, item) => sum + item.preco * item.quantidade, 0);
   const [isDelivery, setIsDelivery] = useState(false);
   const [isPayment, setIsPayment] = useState(false);
+  const [isOrderConfirmed, setIsOrderConfirmed] = useState(false);
+  const [orderId, setOrderId] = useState<string | null>(null);
   const [deliveryInfo, setDeliveryInfo] = useState({
     receiver: '',
     address: '',
@@ -41,6 +43,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
     expiryMonth: '',
     expiryYear: '',
   });
+  const [isOrderCompleted, setIsOrderCompleted] = useState(false);
 
   const handleContinueToDelivery = () => {
     setIsDelivery(true);
@@ -69,14 +72,39 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
 
   const handleCheckout = () => {
     dispatch(checkout({ products: cartItems, delivery: deliveryInfo, payment: paymentInfo }));
-    onClose();
+    setOrderId(`ORDER_${Math.floor(Math.random() * 1000000)}`);
+    setIsOrderConfirmed(true);
+  };
+
+  const handleCompleteOrder = () => {
+    setIsOrderConfirmed(false);
+    setIsOrderCompleted(true);
+    setTimeout(() => {
+      setIsOrderCompleted(false);
+      onClose();
+    }, 3000);
   };
 
   return (
     <>
       <Overlay isOpen={isOpen} onClick={onClose} />
       <CartContainer isOpen={isOpen}>
-        {isPayment ? (
+        {isOrderCompleted ? (
+          <DeliveryContainer>
+            <ModalTitle>Pedido realizado com sucesso! ⭐</ModalTitle>
+          </DeliveryContainer>
+        ) : isOrderConfirmed ? (
+          <DeliveryContainer>
+            <ModalTitle>Pedido realizado - {orderId}</ModalTitle>
+            <p>Estamos felizes em informar que seu pedido já está em processo de preparação e, em breve, será entregue no endereço fornecido.</p>
+            <p>Gostaríamos de ressaltar que nossos entregadores não estão autorizados a realizar cobranças extras.</p>
+            <p>Lembre-se da importância de higienizar as mãos após o recebimento do pedido, garantindo assim sua segurança e bem-estar durante a refeição.</p>
+            <p>Esperamos que desfrute de uma deliciosa e agradável experiência gastronômica. Bom apetite!</p>
+            <ButtonContainer>
+              <ContinueButton onClick={handleCompleteOrder}>Concluir</ContinueButton>
+            </ButtonContainer>
+          </DeliveryContainer>
+        ) : isPayment ? (
           <DeliveryContainer>
             <ModalTitle>Pagamento</ModalTitle>
             <Label>Nome no cartão</Label>
@@ -161,7 +189,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
             </ContinueButton>
           </>
         )}
-      </CartContainer >
+      </CartContainer>
     </>
   );
 };

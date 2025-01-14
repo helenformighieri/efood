@@ -158,4 +158,11 @@ export const DeliveryContainer = styled.div`
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+
+  p {
+    color: ${colors.rosaClaro};
+    font-size: 13px;
+    margin-bottom: 10px;
+    font-weight: normal;
+  }
 `;
