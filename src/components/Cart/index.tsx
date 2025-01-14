@@ -184,9 +184,11 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                 </TotalContainer>
               </>
             )}
-            <ContinueButton onClick={handleContinueToDelivery} disabled={cartItems.length === 0}>
-              Continuar com a entrega
-            </ContinueButton>
+            {cartItems.length > 0 && (
+              <ContinueButton onClick={handleContinueToDelivery}>
+                Continuar com a entrega
+              </ContinueButton>
+            )}
           </>
         )}
       </CartContainer>

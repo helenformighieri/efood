@@ -116,6 +116,11 @@ export const Input = styled.input`
   margin-bottom: 10px;
   border: none;
   outline: none;
+
+  &::placeholder {
+    color: ${colors.branco};
+    background-color: ${colors.rosaClaro}; 
+  }
 `;
 
 export const ButtonContainer = styled.div`
