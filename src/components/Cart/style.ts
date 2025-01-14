@@ -121,6 +121,10 @@ export const Input = styled.input`
     color: ${colors.branco};
     background-color: ${colors.rosaClaro}; 
   }
+
+  &:focus {
+    background-color: ${colors.rosaClaro}; 
+  }
 `;
 
 export const ButtonContainer = styled.div`
