@@ -79,6 +79,23 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
   const handleCompleteOrder = () => {
     setIsOrderConfirmed(false);
     setIsOrderCompleted(true);
+    setDeliveryInfo({
+      receiver: '',
+      address: '',
+      city: '',
+      zipCode: '',
+      number: '',
+      complement: '',
+    });
+    setPaymentInfo({
+      cardName: '',
+      cardNumber: '',
+      cvv: '',
+      expiryMonth: '',
+      expiryYear: '',
+    });
+    setIsDelivery(false);
+    setIsPayment(false);
     setTimeout(() => {
       setIsOrderCompleted(false);
       onClose();
