@@ -4,6 +4,7 @@ import { RootState } from '../../store';
 import { removeFromCart } from '../../slices/cartSlice.ts';
 import { CartContainer, Overlay, DeliveryContainer, ModalTitle, ButtonContainer, ContinueButton, Input, Label, RowContainer, AvisoCarrinhoVazio, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton } from "./style.ts";
 import lixeira from "../../assets/images/lixeira.png";
+import InputMask from 'react-input-mask';
 
 export interface Product {
   id: number;
@@ -49,6 +50,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
 
   const validateDelivery = () => {
     const newErrors: { [key: string]: string } = {};
+    const cleanedZipCode = deliveryInfo.zipCode.replace('-', '');
     if (!deliveryInfo.receiver.match(/^[A-Za-zÀ-ú\s]+$/)) {
       newErrors.receiver = "Use apenas letras.";
     }
@@ -58,8 +60,8 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
     if (!deliveryInfo.address.match(/^[A-Za-zÀ-ú\s]+$/)) {
       newErrors.address = "Use apenas letras.";
     }
-    if (!deliveryInfo.zipCode.match(/^\d{1,9}$/)) {
-      newErrors.zipCode = "Use até 9 números.";
+    if (!cleanedZipCode.match(/^\d{8}$/)) {
+      newErrors.zipCode = "Use 8 números.";
     }
     if (deliveryInfo.number && !deliveryInfo.number.match(/^\d+$/)) {
       newErrors.number = "Use apenas números.";
@@ -70,14 +72,15 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
 
   const validatePayment = () => {
     const newErrors: { [key: string]: string } = {};
+    const cleanedCardNumber = paymentInfo.cardNumber.replace(/\s/g, '');
     if (!paymentInfo.cardName.match(/^[A-Za-zÀ-ú\s]+$/)) {
       newErrors.cardName = "Use apenas letras.";
     }
-    if (!paymentInfo.cardNumber.match(/^\d{16}$/)) {
+    if (!cleanedCardNumber.match(/^\d{16}$/)) {
       newErrors.cardNumber = "Use 16 números.";
     }
-    if (!paymentInfo.cvv.match(/^\d{3,4}$/)) {
-      newErrors.cvv = "Use 3 ou 4 números.";
+    if (!paymentInfo.cvv.match(/^\d{3}$/)) {
+      newErrors.cvv = "Use 3 números.";
     }
     if (!paymentInfo.expiryMonth.match(/^\d{1,2}$/) || parseInt(paymentInfo.expiryMonth) < 1 || parseInt(paymentInfo.expiryMonth) > 12) {
       newErrors.expiryMonth = "Use um mês válido (1-12).";
@@ -131,7 +134,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
         address: {
           description: deliveryInfo.address,
           city: deliveryInfo.city,
-          zipCode: deliveryInfo.zipCode,
+          zipCode: deliveryInfo.zipCode.replace('-', ''), 
           number: parseInt(deliveryInfo.number),
           complement: deliveryInfo.complement,
         },
@@ -139,7 +142,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
       payment: {
         card: {
           name: paymentInfo.cardName,
-          number: paymentInfo.cardNumber,
+          number: paymentInfo.cardNumber.replace(/\s/g, ''), 
           code: parseInt(paymentInfo.cvv),
           expires: {
             month: parseInt(paymentInfo.expiryMonth),
@@ -221,24 +224,32 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
             <RowContainer>
               <div>
                 <Label>Número do cartão</Label>
-                <Input name="cardNumber" value={paymentInfo.cardNumber} onChange={handleChange} />
+                <InputMask mask="9999 9999 9999 9999" name="cardNumber" value={paymentInfo.cardNumber} onChange={handleChange}>
+                  {(inputProps) => <Input {...inputProps} />}
+                </InputMask>
                 {errors.cardNumber && <p>{errors.cardNumber}</p>}
               </div>
               <div>
                 <Label>CVV</Label>
-                <Input name="cvv" value={paymentInfo.cvv} onChange={handleChange} />
+                <InputMask mask="999" name="cvv" value={paymentInfo.cvv} onChange={handleChange}>
+                  {(inputProps) => <Input {...inputProps} />}
+                </InputMask>
                 {errors.cvv && <p>{errors.cvv}</p>}
               </div>
             </RowContainer>
             <RowContainer>
               <div>
                 <Label>Mês de vencimento</Label>
-                <Input name="expiryMonth" value={paymentInfo.expiryMonth} onChange={handleChange} />
+                <InputMask mask="99" name="expiryMonth" value={paymentInfo.expiryMonth} onChange={handleChange}>
+                  {(inputProps) => <Input {...inputProps} />}
+                </InputMask>
                 {errors.expiryMonth && <p>{errors.expiryMonth}</p>}
               </div>
               <div>
                 <Label>Ano de vencimento</Label>
-                <Input name="expiryYear" value={paymentInfo.expiryYear} onChange={handleChange} />
+                <InputMask mask="9999" name="expiryYear" value={paymentInfo.expiryYear} onChange={handleChange}>
+                  {(inputProps) => <Input {...inputProps} />}
+                </InputMask>
                 {errors.expiryYear && <p>{errors.expiryYear}</p>}
               </div>
             </RowContainer>
@@ -263,7 +274,9 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
             <RowContainer>
               <div>
                 <Label>CEP</Label>
-                <Input name="zipCode" value={deliveryInfo.zipCode} onChange={handleChange} />
+                <InputMask mask="99999-999" name="zipCode" value={deliveryInfo.zipCode} onChange={handleChange}>
+                  {(inputProps) => <Input {...inputProps} />}
+                </InputMask>
                 {errors.zipCode && <p>{errors.zipCode}</p>}
               </div>
               <div>
