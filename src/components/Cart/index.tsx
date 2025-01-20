@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { CartContainer, Overlay, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton, ContinueButton, AvisoCarrinhoVazio, Input, ButtonContainer, ModalTitle, Label, RowContainer, DeliveryContainer } from "./style.ts";
-import lixeira from "../../assets/images/lixeira.png";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
-import { removeFromCart, checkout } from '../../slices/cartSlice.ts';
+import { removeFromCart } from '../../slices/cartSlice.ts';
+import { CartContainer, Overlay, DeliveryContainer, ModalTitle, ButtonContainer, ContinueButton, Input, Label, RowContainer, AvisoCarrinhoVazio, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductPrice, TotalContainer, RemoveButton } from "./style.ts";
+import lixeira from "../../assets/images/lixeira.png";
 
 export interface Product {
   id: number;
@@ -160,7 +160,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
 
       const data = await response.json();
       setOrderResponse(data);
-      setOrderId(`ORDER_${Math.floor(Math.random() * 1000000)}`);
+      setOrderId(data.orderId); 
       setIsOrderConfirmed(true);
     } catch (error) {
       console.error('Error during checkout:', error);
