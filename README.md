@@ -1,19 +1,16 @@
-# efood
-
 ![efood](src/assets/images/logo.png)
 
 efood é um e-commerce para divulgação de estabelecimentos gastronômicos, permitindo que os usuários explorem restaurantes e façam pedidos online.
 
-## Índice
+## Deploy da Aplicação
 
-- [Sobre](#sobre)
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Scripts Disponíveis](#scripts-disponíveis)
-- [Estrutura do Projeto](#estrutura-do-projeto)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
+[Deploy no Vercel: ](https://efood-inky-six.vercel.app/Products/2)
+
+## API's consumidas
+
+[Restaurantes](https://fake-api-tau.vercel.app/api/efood/restaurantes)
+
+[Checkout](https://fake-api-tau.vercel.app/api/efood/checkout)
 
 ## Sobre
 

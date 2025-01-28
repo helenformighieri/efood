@@ -32,7 +32,6 @@ const cartSlice = createSlice({
       }
     },
     checkout: (state, action: PayloadAction<any>) => {
-      // Handle checkout logic here
       console.log('Checkout data:', action.payload);
       state.items = [];
     },
