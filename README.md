@@ -1,17 +1,60 @@
-# :hammer: EM CONSTRUÇÃO :hammer:
+# efood
 
-## Primeira Parte do Projeto
+![efood](src/assets/images/logo.png)
 
-<img src="src/assets/images/readme/parte-um.png" alt="Parte visual do projeto, parte um">
+efood é um e-commerce para divulgação de estabelecimentos gastronômicos, permitindo que os usuários explorem restaurantes e façam pedidos online.
 
-Baseado no design disponibilizado como a imagem acima e nos requisitos abaixo:
-<br>
-- Criar um novo projeto React;
-- Utilizar como biblioteca o Styled Component para estilização;
-- Utilizar como biblioteca o React Router para a navegação entre páginas;
-- Criar um novo repositório para o projeto;
-- Subir as alterações no repositório;
-- Criar um projeto na Vercel;
-<br>
-<br>
-Link do projeto no Vercel: https://efood-inky-six.vercel.app/
+## Índice
+
+- [Sobre](#sobre)
+- [Instalação](#instalação)
+- [Uso](#uso)
+- [Scripts Disponíveis](#scripts-disponíveis)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Contribuição](#contribuição)
+- [Licença](#licença)
+
+## Sobre
+
+Este projeto foi criado utilizando [Create React App](https://github.com/facebook/create-react-app) e tem como objetivo fornecer uma interface amigável para que os usuários possam explorar restaurantes e fazer pedidos online.
+
+## Instalação
+
+Para instalar e rodar o projeto localmente, siga os passos abaixo:
+
+1. Clone o repositório:
+    ```sh
+    git clone https://github.com/seu-usuario/efood.git
+    ```
+2. Navegue até o diretório do projeto:
+    ```sh
+    cd efood
+    ```
+3. Instale as dependências:
+    ```sh
+    npm install
+    ```
+
+## Uso
+
+Para iniciar o projeto em modo de desenvolvimento, execute:
+
+```sh
+npm start
+```
+
+## Tecnologias Utilizada
+
+- React
+- TypeScript
+- Redux Toolkit
+- Styled Components
+- React Router
+- React Input Mask
+- React Modal
+- React Redux
+
+## Licença 
+
+Este projeto está licenciado sob a Licença MIT.
